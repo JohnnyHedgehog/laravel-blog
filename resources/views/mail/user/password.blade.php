@@ -1,7 +1,7 @@
 @component('mail::message')
-# Introduction
 
-The body of your message.
+Добрый день!
+Ваш пароль: {{$password}}
 
 @component('mail::button', ['url' => ''])
 Button Text

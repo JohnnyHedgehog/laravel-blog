@@ -38,11 +38,6 @@
           @error('email')
           <div class="text-danger">{{ $message }}</div>
           @enderror
-          <label for="inputText">Пароль</label>
-          <input type="text" name="password" class="form-control" id="inputText" placeholder="Пароль">
-          @error('password')
-          <div class="text-danger">{{ $message }}</div>
-          @enderror
           <div class="form-group">
             <label>Выберите тип пользователя</label>
             <select class="form-control w-75" name="role">
