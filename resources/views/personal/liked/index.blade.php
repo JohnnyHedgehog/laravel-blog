@@ -27,7 +27,42 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
 
-        {{-- Контент --}}
+        <div class="col-6">
+          <div class="card">
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Название поста</th>
+                    <th colspan="2" class="text-center">Действия</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($posts as $post)
+                  <tr>
+                    <td>{{ $post->id }}</td>
+                    <td>{{ $post->title }}</td>
+                    <td><a href="{{ route('admin.post.show', $post->id)}}"><i class="far fa-eye"></i></a>
+                    </td>
+                    <td>
+                      <form action="{{ route('personal.liked.delete', $post->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-transparent border-0"><i
+                            class="fas fa-trash-alt text-danger"></i></button>
+
+                      </form>
+                    </td>
+
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
 
       </div>
       <!-- /.row -->
