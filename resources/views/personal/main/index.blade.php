@@ -29,7 +29,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>33</h3>
+              <h3>{{ $data['likedPostCount']}}</h3>
 
               <p>Понравившиеся посты</p>
             </div>
@@ -45,7 +45,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>55</h3>
+              <h3>{{$data['commentsCount']}}</h3>
 
               <p>Комментарии</p>
             </div>

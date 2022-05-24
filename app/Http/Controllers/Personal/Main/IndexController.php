@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller {
     public function __invoke() {
-        return view('personal.main.index');
+        $data = [];
+        $data['likedPostCount'] = auth()->user()->likedPosts->count();
+        $data['commentsCount'] = auth()->user()->comments->count();
+        return view('personal.main.index', compact('data'));
     }
 }
