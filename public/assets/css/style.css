@@ -7947,3 +7947,34 @@ label {
   text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
+
+/* Стилизация блока с комментариями */
+.comment-block{
+  border:2px solid #fff0e8;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.comment-name{
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+
+.comment-date {
+  color: #7d848b;
+}
+
+/* ссылка внутри блога */
+.blog-link, .blog-link:hover {
+  color: #2e937a;
+}
+
+/* блок с лайками */
+.liked-post-text{
+  color: #7d848b;
+}
+
+.like-count:hover {
+  opacity: 0.6;
+}
