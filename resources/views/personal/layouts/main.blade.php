@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Личный кабинет пользователя | John Hedgehog's Blog</title>
+  <title>Личный кабинет пользователя | My Travel Blog</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
-
+  <!-- Стили для личного кабинета пользователя -->
+  <link rel="stylesheet" href="{{ asset('dist/css/personal.css')}}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -41,34 +42,41 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
+
           </ul>
+
           <ul class="navbar-nav ml-2">
-            <form class="nav-item" action="{{route('logout')}}" method="POST">
-              @csrf
-              <input class="btn btn-outline-primary" type="submit" value="Выйти">
-            </form>
+            <li class="nav-item mr-3">
+              <a href="{{route('main.index')}}" class="btn btn-outline-success">Вернуться на сайт</a>
+            </li>
+            <li class="nav-item">
+              <form class="nav-item" action="{{route('logout')}}" method="POST">
+                @csrf
+                <input class="btn btn-outline-primary" type="submit" value="Выйти">
+              </form>
+            </li>
           </ul>
         </div>
       </div>
-    </nav>
-    <!-- /.navbar -->
+  </div>
+  </nav>
+  <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
-    @include('personal.includes.sidebar')
+  <!-- Main Sidebar Container -->
+  @include('personal.includes.sidebar')
 
-    @yield('content')
+  @yield('content')
 
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <strong>John Hedgehog's Blog</strong>
-    </footer>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>My Travel Blog</strong>
+  </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
 

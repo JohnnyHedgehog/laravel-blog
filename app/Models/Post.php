@@ -13,6 +13,8 @@ class Post extends Model {
     protected $table = 'posts';
     protected $guarded = false;
 
+    protected $with = ['category'];
+
     protected $withCount = ['likedUsers'];
 
     public function tags() {
@@ -37,7 +39,7 @@ class Post extends Model {
         $comments = $this->comments->count();
         if ($comments % 10 == 1) {
             $word = ' комментарий';
-        } else if ($comments % 10 >= 2 && $comments % 10 <= 4) {
+        } else if (($comments % 10 >= 2 && $comments % 10 <= 4) && ($comments % 100 < 10 || $comments % 100 > 20)) {
             $word = ' комментария';
         } else {
             $word = ' комментариев';

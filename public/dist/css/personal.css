@@ -1,0 +1,135 @@
+.liked-post {
+   height: 400px;
+   margin-bottom: 10px;
+} 
+
+
+.liked-post__image-container{
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.liked-post__image {    
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 1s;
+}
+
+.liked-post__image:hover {    
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+}
+
+.liked-post__category {
+    color: #999;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.liked-post__title {
+    font-size: 18px;
+}
+
+.liked-post__link{
+    text-decoration: none;
+    color: #000;
+}
+
+.liked-post__link:hover{
+    color: #000;
+}
+
+.liked-post__button{
+    font-size: 18px;
+    padding-top: 8px;
+}
+
+.liked-post__button:hover{
+    opacity: 0.8;
+}
+
+
+.commented-post {
+    max-width: 250px;
+    height: 300px; 
+    padding: 0; 
+ } 
+ 
+ 
+ .commented-post__image-container{
+     width:250px;
+     height: 250px;
+     overflow: hidden;
+ }
+ 
+ .commented-post__image {    
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     transition: 1s;
+ }
+ 
+ .commented-post__image:hover {    
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     transform: scale(1.1);
+ }
+ 
+ .commented-post__category {
+     color: #999;
+     font-size: 16px;
+     margin-top: 10px;
+     margin-bottom: 0px;
+ }
+
+ .commented-post__title {
+     font-size: 16px;
+ }
+ 
+.commented-post__link{
+     text-decoration: none;
+     color: #000;
+ }
+ 
+ .commented-post__link:hover{
+     color: #000;
+ }
+ 
+ .commented-post__button{
+     font-size: 18px;
+    
+ }
+ 
+ .commented-post__button:hover{
+     opacity: 0.8;
+ }
+
+.commented-post__comment {
+    font-size: 18px;
+    padding-top: 5px;
+    background: rgb(253, 253, 253);
+  
+   
+}
+
+.commented-post__container{
+    margin-bottom: 50px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    gap: 10px;
+}
+
+.commented-post__actions{
+    padding-top: 5px;
+    font-size: 18px
+}
+
+.commented-post__button:hover{    
+    opacity: 0.8;
+}

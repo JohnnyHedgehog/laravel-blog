@@ -1,8 +1,13 @@
 @extends('layouts.main')
 
+@section('title')
+<title>My Travel Blog | {{$post->title}}</title>
+@endsection
+
+
 @section('content')
 
-<main class="blog-post">
+<main class="blog-post" id="app">
     <div class="container">
         <h1 class="edica-page-title" data-aos="fade-up">{{$post->title}}</h1>
         <p class="edica-blog-post-meta" data-aos="fade-up" data-aos-delay="200"> {{$date->translatedFormat('d F Y')}} •
@@ -15,30 +20,23 @@
             <div class="row">
                 <div class="col-lg-9 mx-auto mb-5" data-aos="fade-up">
                     {!! $post->content !!}
-                    <div class="mb-5">
+                    <div class="mb-5 d-flex">
+                        <div class="liked-post-text mr-2"> Отметки "Мне нравится": </div>
+                        {{--
+                        Отображаем Лайки через Vue.JS
+                        --}}
                         @auth
-                        <form action="{{route('post.like.store', $post->id)}}" method="POST">
-                            @csrf
-                            <span class="liked-post-text"> Отметки "Мне нравится":</span>
-                            <span class="blog-post-category liked-post-text like-count">
-                                <button type="submit"
-                                    class="bg-transparent border-0 blog-post-category liked-post-text">
-                                    @if (auth()->user()->likedPosts->contains($post->id))
-                                    <i class="nav-icon fas fa-heart"></i>
-                                    @else
-                                    <i class="nav-icon far fa-heart"></i>
-                                    @endif
-                                </button>
-                                {{$post->liked_users_count}}</span>
-                        </form>
+                        <like-component :post-id="{{$post->id}}" :post-liked-users-count="{{$post->liked_users_count}}"
+                            :user-likes-this-post="{{(int)auth()->user()->likedPosts->contains($post->id)}}">
+                        </like-component>
                         @endauth
                         @guest
-                        <p class="like-post-block">
-                            <span class="liked-post-text"> Отметки "Мне нравится":</span>
-                            <span class="mr-0 liked-post-text">
-                                <i class="nav-icon far fa-heart mr-0 liked-post-text"></i>
-                                {{$post->liked_users_count}}</span>
-                        </p>
+
+                        <div class="mr-0 liked-post-text" data-toggle="tooltip" data-placement="top"
+                            title="Авторизуйтесь, чтобы поставить лайк">
+                            <i class="nav-icon far fa-heart mr-0 liked-post-text"></i>
+                            {{$post->liked_users_count}}
+                        </div>
                         @endguest
                     </div>
                 </div>
@@ -57,7 +55,26 @@
                             <a href=" {{route('post.show', $relatedPost->id)}}" class="blog-post-permalink">
                                 <img src="{{ asset('storage/'.$relatedPost->main_image) }}" alt="related post"
                                     class="post-thumbnail">
-                                <p class="post-category">{{$relatedPost->category->title}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="blog-post-category">{{$relatedPost->category->title}}</p>
+                                    {{--
+                                    Отображаем Лайки через Vue.JS
+                                    --}}
+                                    @auth
+                                    <like-component :post-id="{{$relatedPost->id}}"
+                                        :post-liked-users-count="{{$relatedPost->liked_users_count}}"
+                                        :user-likes-this-post="{{(int)auth()->user()->likedPosts->contains($relatedPost->id)}}">
+                                    </like-component>
+
+                                    @endauth
+                                    @guest
+                                    <p class="blog-post-category" data-toggle="tooltip" data-placement="top"
+                                        title="Авторизуйтесь, чтобы поставить лайк">
+                                        <span class="mr-2">{{$relatedPost->liked_users_count}}</span><i
+                                            class="nav-icon far fa-heart mr-1"></i>
+                                    </p>
+                                    @endguest
+                                </div>
                                 <h5 class="post-title">{{$relatedPost->title}}</h5>
                             </a>
                         </div>
@@ -68,6 +85,10 @@
                 </section>
                 @endif
                 <section class="comment-section">
+                    @auth
+                    <comment-component :post-id="{{$post->id}}"></comment-component>
+                    @endauth
+                    @guest
                     <div class="comments">
                         <h2 class="section-title mb-5">Комментарии ({{$post->comments->count()}})</h2>
                         @foreach ($post->comments as $comment)
@@ -80,25 +101,6 @@
                         </div>
                         @endforeach
                     </div>
-                    @auth
-                    <h2 class="section-title mb-5" data-aos="fade-up">Добавить комментарий</h2>
-                    <form action="{{route('post.comment.store', $post->id)}}" method="post">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group col-12" data-aos="fade-up">
-                                <label for="comment" class="sr-only">Ваш комментарий</label>
-                                <textarea name="message" id="comment" class="form-control"
-                                    placeholder="Введите комментарий" rows="10"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12" data-aos="fade-up">
-                                <input type="submit" value="Отправить" class="btn btn-warning">
-                            </div>
-                        </div>
-                    </form>
-                    @endauth
-                    @guest
                     <h5 class="section-title mt-5 mb-5 text-center" data-aos="fade-up">Для того, чтобы оставить
                         комментарий,
                         необходимо

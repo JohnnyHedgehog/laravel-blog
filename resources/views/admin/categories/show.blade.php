@@ -35,13 +35,13 @@
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-2 mb-3">
+        <div class="col-sm-2 mb-3">
           <a href="{{ route('admin.category.index') }}" class="btn btn-block btn-primary btn-sm">Назад</a>
 
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6">
           <div class="card">
             <div class="card-body table-responsive p-0">
               <table class="table table-hover text-nowrap">

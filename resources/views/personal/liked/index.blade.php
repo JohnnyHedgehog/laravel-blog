@@ -26,48 +26,42 @@
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
       <div class="row">
+        <div class="col-12 d-flex flex-wrap">
+          @foreach ($posts as $post)
 
-        <div class="col-6">
-          <div class="card">
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Название поста</th>
-                    <th colspan="2" class="text-center">Действия</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($posts as $post)
-                  <tr>
-                    <td>{{ $post->id }}</td>
-                    <td>{{ $post->title }}</td>
-                    <td><a href="{{ route('admin.post.show', $post->id)}}"><i class="far fa-eye"></i></a>
-                    </td>
-                    <td>
-                      <form action="{{ route('personal.liked.delete', $post->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-transparent border-0"><i
-                            class="fas fa-trash-alt text-danger"></i></button>
+          <div class="col-lg-4 col-sm-6">
 
-                      </form>
-                    </td>
+            <div class="liked-post">
+              <a href="{{route('post.show', $post->id)}}" class="liked-post__link">
+                <div class="liked-post__image-container">
+                  <img src="{{ asset('storage/'.$post->preview_image) }}" alt="{{$post->title}}"
+                    class="liked-post__image">
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="liked-post__category">{{$post->category->title}}</p>
+                  <form action="{{ route('personal.liked.delete', $post->id)}}" method="POST"
+                    class="liked-post__dislike">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-transparent border-0 liked-post__button"><i
+                        class="fas fa-heart-broken text-danger"></i></button>
 
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                  </form>
+
+                </div>
+                <p class="liked-post__title">{{$post->title}}</p>
+              </a>
             </div>
-            <!-- /.card-body -->
+
           </div>
+
+          @endforeach
         </div>
 
-      </div>
-      <!-- /.row -->
+        </>
+        <!-- /.row -->
 
-    </div><!-- /.container-fluid -->
+      </div><!-- /.container-fluid -->
   </section>
   <!-- /.content -->
 </div>

@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+<title>My Travel Blog | Категории постов</title>
+@endsection
+
 @section('content')
 <main class="blog">
     <div class="container">
@@ -8,8 +12,12 @@
             <div class="row">
                 @foreach ($categories as $category)
                 <div class="col-md-4 fetured-post blog-post" data-aos="fade-right">
-                    <p class="blog-post-category">{{$category->title}}</p>
                     <a href="{{route('category.post.index', $category->id)}}" class="blog-post-permalink">
+                        <div class="blog-post-thumbnail-wrapper">
+                            <img src="{{ asset('storage/'.$category->posts->first()->preview_image) }}" alt="blog post">
+                        </div>
+                        <p class="blog-post-category">{{$category->PostsCount}}</p>
+
                         <h6 class="blog-post-title">{{$category->title}}</h6>
                     </a>
                 </div>

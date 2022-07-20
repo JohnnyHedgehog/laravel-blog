@@ -44,10 +44,15 @@
             </li>
           </ul>
           <ul class="navbar-nav ml-2">
-            <form class="nav-item" action="{{route('logout')}}" method="POST">
-              @csrf
-              <input class="btn btn-outline-primary" type="submit" value="Выйти">
-            </form>
+            <li class="nav-item mr-3">
+              <a href="{{route('main.index')}}" class="btn btn-outline-success">Вернуться на сайт</a>
+            </li>
+            <li class="nav-item">
+              <form class="nav-item" action="{{route('logout')}}" method="POST">
+                @csrf
+                <input class="btn btn-outline-primary" type="submit" value="Выйти">
+              </form>
+            </li>
           </ul>
         </div>
       </div>
@@ -61,7 +66,7 @@
 
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-      <strong>John Hedgehog's Blog</strong>
+      <strong>My Travel Blog</strong>
     </footer>
 
     <!-- Control Sidebar -->

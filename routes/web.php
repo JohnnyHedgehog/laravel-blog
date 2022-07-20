@@ -14,23 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'Main'], function () {
-    Route::get('/', 'IndexController')->name('main.index');
-});
+// Главная
+Route::get('/', 'Post\IndexController')->name('main.index');
 
+// Контакты
+Route::get('/contacts', 'Contact\IndexController')->name('contact.index');
+
+// Посты
 Route::group(['namespace' => 'Post', 'prefix' => 'posts'], function () {
-    Route::get('/', 'IndexController')->name('post.index');
+    // Route::get('/', 'IndexController')->name('post.index');
     Route::get('/{post}', 'ShowController')->name('post.show');
 
+    // Комменты через Vue.JS
     Route::group(['namespace' => 'Comment', 'prefix' => '{post}/comments'], function () {
+        Route::get('/', 'IndexController')->name('post.comment.index');
         Route::post('/', 'StoreController')->name('post.comment.store');
     });
 
+    // Лайки через Vue.JS
     Route::group(['namespace' => 'Like', 'prefix' => '{post}/likes'], function () {
         Route::post('/', 'StoreController')->name('post.like.store');
     });
 });
 
+// Категории
 Route::group(['namespace' => 'Category', 'prefix' => 'categories'], function () {
     Route::get('/', 'IndexController')->name('category.index');
 
@@ -40,7 +47,7 @@ Route::group(['namespace' => 'Category', 'prefix' => 'categories'], function () 
 });
 
 
-
+// Личный кабинет пользователя
 Route::group(['namespace' => 'Personal', 'prefix' => 'personal', 'middleware' => ['auth', 'verified']], function () {
     Route::group(['namespace' => 'Main'], function () {
         Route::get('/', 'IndexController')->name('personal.main.index');
@@ -57,7 +64,7 @@ Route::group(['namespace' => 'Personal', 'prefix' => 'personal', 'middleware' =>
     });
 });
 
-
+// Админка
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'admin', 'verified']], function () {
     Route::group(['namespace' => 'Main'], function () {
         Route::get('/', 'IndexController')->name('admin.main.index');
@@ -100,6 +107,29 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     });
 });
 
-Auth::routes(['verify' => true]);
+// Кастомизируем стандартные роуты авторизации Auth
+// Auth::routes(['verify' => true]);
+// Authentication Routes...
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+
+
+// Registration Routes...
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('/register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+// Email Verify Routes...
+Route::post('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+Route::get('/email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

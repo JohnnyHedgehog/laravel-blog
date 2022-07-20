@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-use App\Notifications\SendVerifyWithQueueNitification;
+use App\Notifications\SendResetWithQueueNotification;
+
+use App\Notifications\SendVerifyWithQueueNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,8 +15,8 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements MustVerifyEmail {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    const ROLE_ADMIN = 0;
-    const ROLE_READER = 1;
+    const ROLE_ADMIN = 1;
+    const ROLE_READER = 0;
 
     static public function getRoles() {
         return [
@@ -54,8 +56,14 @@ class User extends Authenticatable implements MustVerifyEmail {
         'email_verified_at' => 'datetime',
     ];
 
+    // Кастомизация метода для отправки стандартного письма с подтверждением регистрации
     public function sendEmailVerificationNotification() {
-        $this->notify(new SendVerifyWithQueueNitification);
+        $this->notify(new SendVerifyWithQueueNotification);
+    }
+
+    // Кастомизация метода для отправки стандартного письма со сбросом пароля
+    public function sendPasswordResetNotification($token) {
+        $this->notify(new SendResetWithQueueNotification($token));
     }
 
     public function likedPosts() {

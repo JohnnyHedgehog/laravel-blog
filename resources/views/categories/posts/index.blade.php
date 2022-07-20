@@ -1,7 +1,11 @@
 @extends('layouts.main')
 
+@section('title')
+<title>My Travel Blog | Категория - {{$category->title}}</title>
+@endsection
+
 @section('content')
-<main class="blog">
+<main class="blog" id="app">
     <div class="container">
         <h1 class="edica-page-title" data-aos="fade-up">{{$category->title}}</h1>
         <section class="featured-posts-section">
@@ -14,23 +18,19 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <p class="blog-post-category">{{$post->category->title}}</p>
+                            {{--
+                            Отображаем Лайки через Vue.JS
+                            --}}
                             @auth
-                            <form action="{{route('post.like.store', $post->id)}}" method="POST">
-                                @csrf
+                            <like-component :post-id="{{$post->id}}"
+                                :post-liked-users-count="{{$post->liked_users_count}}"
+                                :user-likes-this-post="{{(int)auth()->user()->likedPosts->contains($post->id)}}">
+                            </like-component>
 
-                                <button type="submit"
-                                    class="bg-transparent border-0 blog-post-category mr-1 like-count">
-                                    <span class="blog-post-category mr-1">{{$post->liked_users_count}}</span>
-                                    @if (auth()->user()->likedPosts->contains($post->id))
-                                    <i class="nav-icon fas fa-heart"></i>
-                                    @else
-                                    <i class="nav-icon far fa-heart"></i>
-                                    @endif
-                                </button>
-                            </form>
                             @endauth
                             @guest
-                            <p class="blog-post-category">
+                            <p class="blog-post-category" data-toggle="tooltip" data-placement="top"
+                                title="Авторизуйтесь, чтобы поставить лайк">
                                 <span class="mr-2">{{$post->liked_users_count}}</span><i
                                     class="nav-icon far fa-heart mr-1"></i>
                             </p>

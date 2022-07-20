@@ -26,7 +26,7 @@
           <a href=" {{ route('personal.comment.index') }}" class="nav-link">
             <i class="nav-icon fas fa-comment"></i>
             <p>
-              Комментарии
+              Мои комментарии
             </p>
           </a>
         </li>

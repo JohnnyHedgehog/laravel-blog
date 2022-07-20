@@ -9,6 +9,8 @@ use App\Models\User;
 class StoreController extends Controller {
     public function __invoke(Post $post) {
         auth()->user()->likedPosts()->toggle($post->id);
-        return redirect()->back();
+        $data['isLiked'] = auth()->user()->likedPosts->contains($post->id);
+        $data['likesCount'] = $post->refresh()->liked_users_count;
+        return $data;
     }
 }

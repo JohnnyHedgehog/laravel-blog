@@ -27,7 +27,7 @@
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <form action="{{ route('admin.tag.store') }}" method="POST" class="w25 ml-2">
+        <form action="{{ route('admin.tag.store') }}" method="POST" class="ml-2">
           @csrf
           <label for="inputText">Название</label>
           <input type="text" name="title" class="form-control" id="inputText" placeholder="Название тега">
